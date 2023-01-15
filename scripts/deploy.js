@@ -9,10 +9,10 @@ const fs = require("fs/promises");
 
 async function main() {
   const Token = hre.ethers.getContractFactory("Token");
-  const token = await Token.deploy("100");
+  const token = await (await Token).deploy("100");
 
   const DEX = hre.ethers.getContractFactory("DEX");
-  const dex = await DEX.deploy(token.address, 100);
+  const dex = await (await DEX).deploy(token.address, 100);
 
   await token.deployed();
   await dex.deployed();
@@ -20,7 +20,7 @@ async function main() {
   await writeDeploymentInfo(dex, "dex.json");
 }
 
-async function writeDeploymentInfo(contract) {
+async function writeDeploymentInfo(contract, filename) {
   const data = {
     contract: {
       address: contract.address,
@@ -31,7 +31,7 @@ async function writeDeploymentInfo(contract) {
 
   const content = JSON.stringify(data, null, 2);
 
-  await fs.writeFile("deployment.json", content, { encoding: "utf8" });
+  await fs.writeFile(filename, content, { encoding: "utf8" });
 }
 
 main().catch((error) => {

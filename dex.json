@@ -1,0 +1,16 @@
+{
+  "contract": {
+    "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+    "signerAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "abi": [
+      "constructor(address _token, uint256 _price)",
+      "function associatedToken() view returns (address)",
+      "function buy(uint256 numTokens) payable",
+      "function getPrice(uint256 numTokens) view returns (uint256)",
+      "function getTokenBalance() view returns (uint256)",
+      "function sell()",
+      "function withdrawFunds()",
+      "function withdrawTokens()"
+    ]
+  }
+}
