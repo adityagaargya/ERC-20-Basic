@@ -51,9 +51,14 @@ contract DEX {
     }
 
     function buy(uint numTokens) external payable {
-        require(
-            numTokens <= associatedToken.balanceOf(address(this)),
-            "Not enough tokens"
-        );
+        require(numTokens <= getTokenBalance(), "Not enough tokens");
+        uint priceForTokens = getPrice(numTokens);
+
+        require(msg.value == priceForTokens, "Invalid value sent");
+        associatedToken.transfer(msg.sender, numTokens);
+    }
+
+    function getTokenBalance() public view returns (uint256) {
+        return associatedToken.balanceOf(address(this));
     }
 }
